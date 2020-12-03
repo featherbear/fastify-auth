@@ -6,17 +6,19 @@ export type FastifyAuthFunction = (
   done: (error?: Error) => void
 ) => void;
 
+type FastifyAuthOptions = {
+  relation?: 'and' | 'or',
+  run?: 'all'
+}
+
 declare module 'fastify' {
   interface FastifyInstance {
     auth(
       functions: FastifyAuthFunction[],
-      options?: {
-        relation?: 'and' | 'or',
-        run?: 'all'
-      }
+      options?: FastifyAuthOptions
     ): preHandlerHookHandler;
   }
 }
 
-declare const fastifyAuth: FastifyPlugin;
+declare const fastifyAuth: FastifyPlugin<FastifyAuthOptions>;
 export default fastifyAuth;

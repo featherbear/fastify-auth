@@ -4,7 +4,7 @@ const fp = require('fastify-plugin')
 const reusify = require('reusify')
 
 function checkAuth (fastify, opts, next) {
-  fastify.decorate('auth', auth)
+  fastify.decorate('auth', (functions, opts_) => auth(functions, {...opts, ...opts_}))
   next()
 }
 
